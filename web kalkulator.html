@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkulator Portofolio</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .calculator {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+            width: 320px;
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        label {
+            font-size: 14px;
+            color: #555;
+            font-weight: bold;
+        }
+        input, select, button {
+            width: 100%;
+            padding: 10px;
+            margin: 6px 0 15px 0;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-size: 14px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .result-box {
+            background: #e8f5e9;
+            padding: 10px;
+            border-radius: 6px;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        .history {
+            max-height: 120px;
+            overflow-y: auto;
+            border-top: 1px solid #ddd;
+            padding-top: 10px;
+            font-size: 13px;
+            color: #666;
+        }
+        .btn-hapus{
+            background-color: #f44336;
+            margin-top: 10px;
+            padding: 8px;
+            font-size: 13px;
+            font-weight: bold;
+        }
+        .btn-hapus:hover {
+            background-color: #d32f2f;
+        }
+    </style>
+</head>
+<body>
+
+<div class="calculator">
+    <h2> Web Kalkulator</h2>
+    
+    <label>Angka Pertama:</label>
+    <input type="number" id="angka1" placeholder="Masukkan angka...">
+
+    <label>Angka Kedua:</label>
+    <input type="number" id="angka2" placeholder="Masukkan angka...">
+
+    <label>Pilih Operasi:</label>
+    <select id="operasi">
+        <option value="tambah">Penjumlahan (+)</option>
+        <option value="kurang">Pengurangan (-)</option>
+        <option value="kali">Perkalian (*)</option>
+        <option value="bagi">Pembagian (/)</option>
+    </select>
+
+    <button onclick="hitung()">Hitung</button>
+
+    <div class="result-box">
+        <strong>Hasil: <span id="hasil">0</span></strong>
+    </div>
+
+    <div class="history">
+        <strong>Riwayat Perhitungan:</strong>
+        <ul id="daftar-riwayat" style="padding-left: 20px; margin: 5px 0;"></ul>
+        <button onclick="hapusRiwayat()" class="btn-hapus">Hapus Riwayat</button>
+    </div>
+</div>
+
+<script>
+    function hitung() {
+        // Mengambil nilai dari input web
+        let a1 = parseFloat(document.getElementById('angka1').value);
+        let a2 = parseFloat(document.getElementById('angka2').value);
+        let op = document.getElementById('operasi').value;
+        let hasilElem = document.getElementById('hasil');
+        let riwayatList = document.getElementById('daftar-riwayat');
+
+        // Validasi jika input kosong
+        if (isNaN(a1) || isNaN(a2)) {
+            alert("Harap masukkan angka pertama dan kedua dengan benar!");
+            return;
+        }
+
+        let hasil = 0;
+        let teks = "";
+
+        // Logika perhitungan matematika
+        if (op === 'tambah') {
+            hasil = a1 + a2;
+            teks = `${a1} + ${a2} = ${hasil}`;
+        } else if (op === 'kurang') {
+            hasil = a1 - a2;
+            teks = `${a1} - ${a2} = ${hasil}`;
+        } else if (op === 'kali') {
+            hasil = a1 * a2;
+            teks = `${a1} * ${a2} = ${hasil}`;
+        } else if (op === 'bagi') {
+            if (a2 === 0) {
+                alert("Error: Tidak bisa membagi angka dengan nol (0)!");
+                return;
+            }
+            hasil = a1 / a2;
+            teks = `${a1} / ${a2} = ${hasil}`;
+        }
+
+        // Menampilkan hasil di layar
+        hasilElem.innerText = hasil;
+
+        // Menambahkan catatan ke dalam riwayat web
+        let li = document.createElement('li');
+        li.innerText = teks;
+        riwayatList.appendChild(li);
+    }
+
+function hapusRiwayat() {
+    let riwayatList = document.getElemenById('daftar-riwayat');
+    riwayatList,innerHTML =""; // Mengosongkan daftar riwayat di layar
+}
+</script>
+
+</body>
+</html>
